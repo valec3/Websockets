@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>WEBSOCKET</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+    </head>
+    <body class="w-screen py-6">
+        <main class="mx-auto w-full max-w-[1200px]">
+            <h1 class="text-red-400 font-bold">Chat con WEBSOCKET</h1>
+            <section class="border-[2px] p-2 rounded-lg">
+                <div>
+                    <input type="text" id="" placeholder="type your text" />
+                    <button>Enviar</button>
+                </div>
+            </section>
+        </main>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.4/socket.io.min.js"></script>
+        <script>
+            const socket = io('http://localhost:3000');
+        </script>
+    </body>
+</html>
