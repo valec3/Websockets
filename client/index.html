@@ -5,20 +5,50 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>WEBSOCKET</title>
         <script src="https://cdn.tailwindcss.com"></script>
+        <script
+            src="https://cdn.socket.io/4.7.4/socket.io.min.js"
+            integrity="sha384-Gr6Lu2Ajx28mzwyVR8CFkULdCU7kMlZ9UthllibdOSo6qAiN+yXNHqtgdTvFXMT4"
+            crossorigin="anonymous"
+        ></script>
+
+        <style>
+            *,
+            *::before,
+            *::after {
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+            }
+            html,
+            body {
+                font-family: 'Roboto', sans-serif;
+            }
+        </style>
     </head>
-    <body class="w-screen py-6">
-        <main class="mx-auto w-full max-w-[1200px]">
-            <h1 class="text-red-400 font-bold">Chat con WEBSOCKET</h1>
-            <section class="border-[2px] p-2 rounded-lg">
-                <div>
-                    <input type="text" id="" placeholder="type your text" />
-                    <button>Enviar</button>
+    <body class="w-screen h-screen py-6 overflow-hidden">
+        <main class="mx-auto w-full h-full max-w-[1200px] p-4">
+            <h1 class="text-red-400 font-bold text-[2rem] text-center">
+                Chat con WEBSOCKET
+            </h1>
+            <section
+                class="relative border-[2px] p-2 rounded-lg h-[90%] flex flex-col gap-4 items-around justify-between"
+            >
+                <div class="overflow-y-auto">
+                    <ul id="messagesChat"></ul>
                 </div>
+                <form class="p-2 flex gap-4 w-full" id="form-chat">
+                    <input
+                        class="border-[1px] rounded-lg flex-1 p-1 px-4"
+                        type="text"
+                        id="inputUser"
+                        placeholder="type your text"
+                    />
+                    <button class="px-4 py-1 bg-blue-400 text-white rounded-lg">
+                        Enviar
+                    </button>
+                </form>
             </section>
         </main>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.4/socket.io.min.js"></script>
-        <script>
-            const socket = io('http://localhost:3000');
-        </script>
+        <script src="app.js"></script>
     </body>
 </html>
