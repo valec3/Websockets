@@ -1,2 +1,4 @@
 server/node_modules
 server/node_modules/*
+server-ws/node_modules
+server-ws/node_modules/*
