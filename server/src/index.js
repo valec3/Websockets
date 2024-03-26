@@ -3,6 +3,9 @@ import logger from 'morgan';
 import cors from 'cors';
 import { Server } from 'socket.io';
 import { createServer } from 'node:http';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const port = process.env.PORT ?? 3000;
 
@@ -11,6 +14,10 @@ const server = createServer(app);
 const io = new Server(server, {
     cors: {
         origin: '*',
+    },
+    connectionStateRecovery: {
+        tolerance: 3,
+        delay: 3,
     },
 });
 
