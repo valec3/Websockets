@@ -3,11 +3,8 @@ import logger from 'morgan';
 import cors from 'cors';
 import { Server } from 'socket.io';
 import { createServer } from 'node:http';
-import dotenv from 'dotenv';
-
-dotenv.config();
-
-const port = process.env.PORT ?? 3000;
+import { PORT } from './env-vars.js';
+import pool from './db.js';
 
 const app = express();
 const server = createServer(app);
@@ -21,13 +18,18 @@ const io = new Server(server, {
     },
 });
 
-io.on('connection', (socket) => {
+io.on('connection', async (socket) => {
     console.log('a user connected');
+    const [rows] = await pool.query('SELECT * FROM messages');
+    rows.forEach((row) => {
+        socket.emit('chat message', row.text);
+    });
     socket.on('disconnect', () => {
         console.log('user disconnected');
     });
-    socket.on('chat message', (msg) => {
+    socket.on('chat message', async (msg) => {
         console.log(`message: ${msg}`);
+        await pool.query('INSERT INTO messages (text) VALUES (?)', [msg]);
         io.emit('chat message', msg);
     });
 });
@@ -35,10 +37,12 @@ io.on('connection', (socket) => {
 app.use(logger('dev'));
 // Permitir todas las solicitudes CORS
 app.use(cors());
-app.get('/', (req, res) => {
-    res.send('Hello World!');
+app.get('/', async (req, res) => {
+    const [rows] = await pool.query('SHOW TABLES');
+    res.json(rows);
 });
 
-server.listen(port, () => {
-    console.log(`Server is running on port ${port}`);
+server.listen(PORT, () => {
+    console.log(`Server is running on PORT ${PORT}`);
+    console.log(`http://localhost:${PORT}`);
 });
