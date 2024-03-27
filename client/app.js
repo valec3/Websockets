@@ -17,6 +17,7 @@ socket.on('chat message', (msg) => {
     item.classList.add('font-bold');
     item.classList.add('p-2');
     item.classList.add('rounded');
+    item.classList.add('py-[5px]');
 
     item.textContent = msg;
     messagesChat.appendChild(item);
