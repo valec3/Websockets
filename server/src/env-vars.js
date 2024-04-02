@@ -1,4 +1,5 @@
 import dotenv from 'dotenv';
+import process from 'process'; // Import the 'process' module
 
 dotenv.config();
 
